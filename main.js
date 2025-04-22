@@ -1,29 +1,34 @@
 var dadosLista = [];
 
-function salvarCadastro()
-{
+function salvarCadastro() {
     let nomeDescricao = document.getElementById('nomeDescricao').value;
-     
-    if(nomeDescricao)
-    {
-        dadosLista.push(nomeDescricao);
+    let nomeValor = document.getElementById('nomeValor').value;
+    let nomeCategoria = document.getElementById('nomeCategoria').value;
+
+    if (nomeDescricao && nomeValor && nomeCategoria) {
+        let novoItem = {
+            descricao: nomeDescricao,
+            valor: nomeValor,
+            categoria: nomeCategoria
+        };
+        dadosLista.push(novoItem);
         console.log(dadosLista);
         criaLista();
-        document.getElementById ('nomeDescricao').value = "";
-    }
-    else
-    {
-        alert("Favor inserir um nome para cadastro");
+        document.getElementById('nomeDescricao').value = "";
+        document.getElementById('nomeValor').value = "";
+        document.getElementById('nomeCategoria').value = "";
+    } else {
+        alert("Por favor, preencha todos os campos.");
     }
 }
 
-function criaLista()
-{
-    let tabela = "<th>Descrição</th><th>Valor</th><th>Categoria</th>";
+function criaLista() {
+    let tabela = "<thead><tr><th>Descrição</th><th>Valor</th><th>Categoria</th></tr></thead><tbody>";
 
-    for(let i = 0; i <= (dadosLista.length -1); i++)
-    {
-        tabela += "<tr><td>" + dadosLista[i] /*+ "</td><td> onclick=editar>Editar<td><button class='btn btn-danger' onclick='excluir(this.parentNode.parentNode.rowIndex)'>Excluir</button></td></tr>"*/;
-        document.getElementById('tabela').innerHTML = tabela;       
+    for (let i = 0; i < dadosLista.length; i++) {
+        tabela += "<tr><td>" + dadosLista[i].descricao + "</td><td>" + dadosLista[i].valor + "</td><td>" + dadosLista[i].categoria + "</td></tr>";
     }
+
+    tabela += "</tbody>";
+    document.getElementById('tabela').innerHTML = tabela;
 }
